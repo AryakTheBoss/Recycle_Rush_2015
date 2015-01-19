@@ -50,15 +50,15 @@ public class RobotMap {
 	public static CANTalon elevatorLeftMotor = new CANTalon(4);
 	public static CANTalon elevatorRightMotor = new CANTalon(5);
 	// Sensors
-	public static Encoder driveEncoderLeft = new Encoder(1, 2, true, EncodingType.k4X);
+	public static Encoder driveEncoderLeft = new Encoder(0, 1, true, EncodingType.k4X);
     public static Gyro gyro = new Gyro(1);
-    public static Encoder driveEncoderRight = new Encoder(3,4, false, EncodingType.k4X);
+    public static Encoder driveEncoderRight = new Encoder(2,3, false, EncodingType.k4X);
     public static AnalogInput temperature = new AnalogInput(2);
-    public static Encoder elevatorEncoder = new Encoder(5,6, false, EncodingType.k4X);
+    public static Encoder elevatorEncoder = new Encoder(4,5, false, EncodingType.k4X);
     
     // Digital IO
-    public static DigitalInput elevatorTopLimitSwitch = new DigitalInput(8);
-    public static DigitalInput elevatorBottomLimitSwitch = new DigitalInput(9);
+    public static DigitalInput elevatorTopLimitSwitch = new DigitalInput(9);
+    public static DigitalInput elevatorBottomLimitSwitch = new DigitalInput(8);
 	
     // Spikes
     public static Relay intakeLeftSpike = new Relay(5);

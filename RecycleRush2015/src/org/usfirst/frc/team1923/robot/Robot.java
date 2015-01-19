@@ -28,9 +28,9 @@ public class Robot extends IterativeRobot {
 
 	//public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
-	public static DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
+	public static DriveTrainSubsystem driveTrainSubsystem;
     //public static Elevator elevator
-    public static ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+    public static ElevatorSubsystem elevatorSubsystem; 
     // Auton Selector
     public SendableChooser autoChooser;
        
@@ -43,6 +43,8 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
+		driveTrainSubsystem = new DriveTrainSubsystem();
+		elevatorSubsystem = new ElevatorSubsystem();
 		// Initialize Robot
 		RobotMap.init();
 		
