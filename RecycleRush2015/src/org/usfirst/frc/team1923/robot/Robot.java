@@ -6,6 +6,7 @@ import org.usfirst.frc.team1923.robot.commands.AutoRoutine_MAK;
 import org.usfirst.frc.team1923.robot.commands.DriveDistanceCommand;
 import org.usfirst.frc.team1923.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team1923.robot.subsystems.ElevatorSubsystem;
+import org.usfirst.frc.team1923.robot.subsystems.IntakeWheelsSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -31,6 +32,8 @@ public class Robot extends IterativeRobot {
 	public static DriveTrainSubsystem driveTrainSubsystem;
     //public static Elevator elevator
     public static ElevatorSubsystem elevatorSubsystem; 
+    // Intake Subsystem
+    public static IntakeWheelsSubsystem intakeWheelsSubsystem;
     // Auton Selector
     public SendableChooser autoChooser;
        
@@ -45,6 +48,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		driveTrainSubsystem = new DriveTrainSubsystem();
 		elevatorSubsystem = new ElevatorSubsystem();
+		intakeWheelsSubsystem = new IntakeWheelsSubsystem();
 		// Initialize Robot
 		RobotMap.init();
 		

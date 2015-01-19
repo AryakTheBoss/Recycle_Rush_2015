@@ -11,12 +11,12 @@ public class RotateIntakeReverseCommand extends Command {
 
     public RotateIntakeReverseCommand() {
         // Use requires() here to declare subsystem dependencies
-    	requires(Robot.elevatorSubsystem);
+    	requires(Robot.intakeWheelsSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.elevatorSubsystem.rotateIntakeReverse();
+    	Robot.intakeWheelsSubsystem.rotateIntakeReverse();
     }
 
     // Called repeatedly when this Command is scheduled to run

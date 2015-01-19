@@ -200,21 +200,7 @@ public class ElevatorSubsystem extends PIDSubsystem {
     	return this.elevatorHomePositionSet;
     }
     
-    // Intake wheel Forward
-    public void rotateIntakeForward(){
-    	RobotMap.intakeLeftSpike.set(Relay.Value.kForward);
-    	RobotMap.intakeRightSpike.set(Relay.Value.kReverse);
-    }
- // Intake wheel Reverse
-    public void rotateIntakeReverse(){
-    	RobotMap.intakeLeftSpike.set(Relay.Value.kReverse);
-    	RobotMap.intakeRightSpike.set(Relay.Value.kForward);
-    }
- // Intake wheel stop
-    public void stopIntake(){
-    	RobotMap.intakeLeftSpike.set(Relay.Value.kOff);
-    	RobotMap.intakeRightSpike.set(Relay.Value.kOff);
-    }
+   
     
 }
 
