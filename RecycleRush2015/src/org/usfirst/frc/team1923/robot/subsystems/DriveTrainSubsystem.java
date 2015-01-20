@@ -24,14 +24,14 @@ public class DriveTrainSubsystem extends PIDSubsystem {
     // here. Call these from Commands.
 	// distance per pulse of a drive-wheel encoder, in inches. [CHANGE THESE VALUES!!!!!!!!!!]
 	// Declare variable for the robot drive system
-    public RobotDrive robotDriveTrain = RobotMap.robotDriveTrain;
+    //public RobotDrive robotDriveTrain = RobotMap.robotDriveTrain;
     private Timer timer;
     private double timeOut = 2.0;
     // Drive Wheel Encoders
-    private Encoder driveEncoderLeft = RobotMap.driveEncoderLeft;
-    private Encoder driveEncoderRight = RobotMap.driveEncoderRight;
+    //private Encoder driveEncoderLeft = RobotMap.driveEncoderLeft;
+    //private Encoder driveEncoderRight = RobotMap.driveEncoderRight;
     // gyro.
-    private Gyro gyro = RobotMap.gyro;
+    //private Gyro gyro = RobotMap.gyro;
 	
 	
 	private static final double NUM_CLICKS = 256, //distance per pulse = 0.0491"/pulse
@@ -49,19 +49,20 @@ public class DriveTrainSubsystem extends PIDSubsystem {
         super(Pe, Ie, De);
      // TODO
     	// Set distance per pulse for each encoder
-        this.driveEncoderLeft.setDistancePerPulse(GEAR_RATIO*WHEEL_CIRCUMFERENCE/NUM_CLICKS);
-        this.driveEncoderRight.setDistancePerPulse(GEAR_RATIO*WHEEL_CIRCUMFERENCE/NUM_CLICKS);
+        RobotMap.driveEncoderLeft.setDistancePerPulse(GEAR_RATIO*WHEEL_CIRCUMFERENCE/NUM_CLICKS);
+        RobotMap.driveEncoderRight.setDistancePerPulse(GEAR_RATIO*WHEEL_CIRCUMFERENCE/NUM_CLICKS);
         // Set PID source parameter to Distance...
-        this.driveEncoderLeft.setPIDSourceParameter(Encoder.PIDSourceParameter.kDistance);
-        this.driveEncoderRight.setPIDSourceParameter(Encoder.PIDSourceParameter.kDistance);
+        //this.driveEncoderLeft.setPIDSourceParameter(Encoder.PIDSourceParameter.kDistance);
+        //this.driveEncoderRight.setPIDSourceParameter(Encoder.PIDSourceParameter.kDistance);
         // PID tolerance
         this.setAbsoluteTolerance(encoderTOLERANCE);
         this.setOutputRange(-1.0, 1.0);
         this.setInputRange(-200.0, 200.0);
+       
         
         
         
-        gyro.reset();
+        RobotMap.gyro.reset();
        
         
         // Timer        
@@ -69,10 +70,7 @@ public class DriveTrainSubsystem extends PIDSubsystem {
         timer.reset();
         timer.stop();
         
-        // Live Window
-        LiveWindow.addSensor("DriveTrainSubsystem", "Left Encoder", this.driveEncoderLeft);
-        LiveWindow.addSensor("DriveTrainSubsystem", "Right Encoder", this.driveEncoderRight);
-        LiveWindow.addSensor("DriveTrainSubsystem", "Gyro", this.gyro);
+        
         this.disable();
 	}
    
@@ -122,7 +120,7 @@ public class DriveTrainSubsystem extends PIDSubsystem {
      * the subsystem.
      */
     protected void usePIDOutput(double d) {
-        this.robotDriveTrain.drive(d, 0);
+    	RobotMap.robotDriveTrain.drive(d, 0);
     }
     
        
@@ -147,16 +145,17 @@ public class DriveTrainSubsystem extends PIDSubsystem {
     	
     }
     
+        
     /**
      *
      * @return Count from the encoder (since the last reset?).
      */
     public double getLeftEncoderCount() {
-       return this.driveEncoderLeft.getRaw();
+       return RobotMap.driveEncoderLeft.getRaw();
     }
     
     public double getRightEncoderCount() {
-        return this.driveEncoderRight.getRaw();
+        return RobotMap.driveEncoderRight.getRaw();
      }
     
     /**
@@ -164,19 +163,19 @@ public class DriveTrainSubsystem extends PIDSubsystem {
      * @return Distance the encoder has recorded since the last reset, adjusted for the gear ratio.
      */
     public double getLeftEncoderDistance() {
-        return this.driveEncoderLeft.getDistance();
+        return RobotMap.driveEncoderLeft.getDistance();
     }
     
     public double getRightEncoderDistance() {
-        return this.driveEncoderRight.getDistance();
+        return RobotMap.driveEncoderRight.getDistance();
     }
     
     public double getAvgEncoderDistance() {
-        return (this.driveEncoderLeft.getDistance()+this.driveEncoderRight.getDistance())/2.0;
+        return (RobotMap.driveEncoderLeft.getDistance()+RobotMap.driveEncoderRight.getDistance())/2.0;
     }
     
     public double getSpeedDiff(){
-    	return this.driveEncoderLeft.getRate() - this.driveEncoderRight.getRate();
+    	return RobotMap.driveEncoderLeft.getRate() - RobotMap.driveEncoderRight.getRate();
     }
     
     // Gyro Base Turns

@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1923.robot;
 
+import org.usfirst.frc.team1923.util.MotorGroup;
+
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -71,7 +73,10 @@ public class RobotMap {
 	// Elevator
 	public static RobotDrive elevatorDrive = new RobotDrive(elevatorLeftMotor, elevatorRightMotor);
 	
-	
+	// Motor Group for Drive
+	/* Motor Group Init. */
+    public static final MotorGroup driveLeftSide = new MotorGroup(frontLeftDrive, rearLeftDrive);
+    public static final MotorGroup driveRightSide = new MotorGroup(frontRightDrive, rearRightDrive);
 	
 	
 	
@@ -91,6 +96,12 @@ public class RobotMap {
 	LiveWindow.addActuator("DriveTRainSubsystem", "rearRightDrive",  (LiveWindowSendable) rearRightDrive);
 	LiveWindow.addActuator("elevatorDrive", "elevatorLeftMotor",  (LiveWindowSendable) elevatorLeftMotor);
 	LiveWindow.addActuator("elevatorDrive", "elevatorRightMotor",  (LiveWindowSendable) elevatorRightMotor);
+	
+	// Live Window
+    LiveWindow.addSensor("DriveTrainSubsystem", "Left Encoder", RobotMap.driveEncoderLeft);
+    LiveWindow.addSensor("DriveTrainSubsystem", "Right Encoder", RobotMap.driveEncoderRight);
+    LiveWindow.addSensor("DriveTrainSubsystem", "Gyro", RobotMap.gyro);
+    LiveWindow.addSensor("ElevatorSubsystem", "Elevator Encoder", RobotMap.elevatorEncoder);
 	
      
 		
