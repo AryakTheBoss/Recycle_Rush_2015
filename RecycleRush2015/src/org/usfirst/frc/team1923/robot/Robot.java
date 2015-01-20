@@ -45,12 +45,13 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-		oi = new OI();
+    	RobotMap.init();
 		driveTrainSubsystem = new DriveTrainSubsystem();
 		elevatorSubsystem = new ElevatorSubsystem();
 		intakeWheelsSubsystem = new IntakeWheelsSubsystem();
+		oi = new OI();
 		// Initialize Robot
-		RobotMap.init();
+		
 		
 		SmartDashboard.putData(driveTrainSubsystem);
 		SmartDashboard.putData(elevatorSubsystem);

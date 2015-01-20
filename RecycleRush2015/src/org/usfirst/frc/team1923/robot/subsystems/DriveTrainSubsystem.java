@@ -24,7 +24,7 @@ public class DriveTrainSubsystem extends PIDSubsystem {
     // here. Call these from Commands.
 	// distance per pulse of a drive-wheel encoder, in inches. [CHANGE THESE VALUES!!!!!!!!!!]
 	// Declare variable for the robot drive system
-    private RobotDrive robotDriveTrain = RobotMap.robotDriveTrain;
+    public RobotDrive robotDriveTrain = RobotMap.robotDriveTrain;
     private Timer timer;
     private double timeOut = 2.0;
     // Drive Wheel Encoders
@@ -38,7 +38,7 @@ public class DriveTrainSubsystem extends PIDSubsystem {
     							GEAR_RATIO = 1.0/1.0, 
 					            WHEEL_CIRCUMFERENCE = 12.56,   // 4 inches wheels
 					            Pg = 0.1, Ig = 0.005, Dg = 0.0,     // LEAVE THESE CONSTANTS ALONE!
-					            Pe = 8.0, Ie = 0.01, De = 0.0,      // LEAVE THESE CONSTANTS ALONE!
+					            Pe = 0.5, Ie = 0.01, De = 0.0,      // LEAVE THESE CONSTANTS ALONE!
 					            PID_LOOP_TIME = .05, 
 					            gyroTOLERANCE = 0.3,            // 0.2778% error ~= 0.5 degrees...?
 					            encoderTOLERANCE = 2.0;         // +/- 2" tolarance
@@ -47,42 +47,35 @@ public class DriveTrainSubsystem extends PIDSubsystem {
 	
 	public DriveTrainSubsystem() {
         super(Pe, Ie, De);
-        this.init();
+     // TODO
+    	// Set distance per pulse for each encoder
+        this.driveEncoderLeft.setDistancePerPulse(GEAR_RATIO*WHEEL_CIRCUMFERENCE/NUM_CLICKS);
+        this.driveEncoderRight.setDistancePerPulse(GEAR_RATIO*WHEEL_CIRCUMFERENCE/NUM_CLICKS);
+        // Set PID source parameter to Distance...
+        this.driveEncoderLeft.setPIDSourceParameter(Encoder.PIDSourceParameter.kDistance);
+        this.driveEncoderRight.setPIDSourceParameter(Encoder.PIDSourceParameter.kDistance);
+        // PID tolerance
+        this.setAbsoluteTolerance(encoderTOLERANCE);
+        this.setOutputRange(-1.0, 1.0);
+        this.setInputRange(-200.0, 200.0);
+        
+        
+        
+        gyro.reset();
+       
+        
+        // Timer        
+        timer = new Timer();
+        timer.reset();
+        timer.stop();
+        
+        // Live Window
+        LiveWindow.addSensor("DriveTrainSubsystem", "Left Encoder", this.driveEncoderLeft);
+        LiveWindow.addSensor("DriveTrainSubsystem", "Right Encoder", this.driveEncoderRight);
+        LiveWindow.addSensor("DriveTrainSubsystem", "Gyro", this.gyro);
         this.disable();
 	}
-	
-	
-public void init(){
-	// TODO
-	// Set distance per pulse for each encoder
-    this.driveEncoderLeft.setDistancePerPulse(GEAR_RATIO*WHEEL_CIRCUMFERENCE/NUM_CLICKS);
-    this.driveEncoderRight.setDistancePerPulse(GEAR_RATIO*WHEEL_CIRCUMFERENCE/NUM_CLICKS);
-    // Set PID source parameter to Distance...
-    this.driveEncoderLeft.setPIDSourceParameter(Encoder.PIDSourceParameter.kDistance);
-    this.driveEncoderRight.setPIDSourceParameter(Encoder.PIDSourceParameter.kDistance);
-    // PID tolerance
-    this.setAbsoluteTolerance(encoderTOLERANCE);
-    this.setOutputRange(-1.0, 1.0);
-    this.setInputRange(-200.0, 200.0);
-    
-    
-    
-    gyro.reset();
    
-    
-    // Timer        
-    timer = new Timer();
-    timer.reset();
-    timer.stop();
-    
-    // Live Window
-    LiveWindow.addSensor("DriveTrainSubsystem", "Left Encoder", this.driveEncoderLeft);
-    LiveWindow.addSensor("DriveTrainSubsystem", "Right Encoder", this.driveEncoderRight);
-    LiveWindow.addSensor("DriveTrainSubsystem", "Gyro", this.gyro);
-    
-}
-   
-    
     
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -180,6 +173,10 @@ public void init(){
     
     public double getAvgEncoderDistance() {
         return (this.driveEncoderLeft.getDistance()+this.driveEncoderRight.getDistance())/2.0;
+    }
+    
+    public double getSpeedDiff(){
+    	return this.driveEncoderLeft.getRate() - this.driveEncoderRight.getRate();
     }
     
     // Gyro Base Turns
